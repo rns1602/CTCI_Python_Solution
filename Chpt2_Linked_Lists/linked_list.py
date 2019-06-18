@@ -5,7 +5,8 @@ Created on Sat Jun 15 17:45:32 2019
 
 @author: rushit
 """
-
+# Part 1 - Data Structures
+# |---Chpt2 - Linked Lists
 class ListNode:
     
     def __init__(self, data):
