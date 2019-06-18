@@ -4,5 +4,7 @@ I will be updating this repo with the Pythton implementations of hte interview q
 
 
 PART 1 - Data Structures
+
 |---Chpt 1 - Arrays and Strings
+
 |---Chpt 2 - Linked Lists
