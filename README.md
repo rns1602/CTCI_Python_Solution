@@ -1,9 +1,9 @@
-Cracking the Coding Interview (Gayle Laakmann McDowell) - Python Solutions
+# Cracking the Coding Interview (Gayle Laakmann McDowell) - Python Solutions
 
-I will be updating this repo with the Pythton implementations of hte interview questions in the book. Work in progress.
+I will be updating this repo with the Pythton implementations of the interview questions in the book. Work in progress.
 
 
-PART 1 - Data Structures
+## PART 1 - Data Structures
+        1. Arrays and Strings
+        2. Linked Lists
 
-|---Chpt 1 - Arrays and Strings\n
-|---Chpt 2 - Linked Lists
