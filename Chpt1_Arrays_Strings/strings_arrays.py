@@ -113,7 +113,4 @@ def remove_duplicates_string(string):
             string_final.append(chr(string_new[i+1].value))
     
     return string_final
-        
-x = remove_duplicates_string("mayank")
-for i in range(len(x)):
-    print(x[i])
+
