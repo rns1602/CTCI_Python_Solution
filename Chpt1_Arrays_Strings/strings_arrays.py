@@ -25,7 +25,7 @@ def string_unique_chars(string):
     else:
         print("Please enter a valid string")
 
-"Q1.2: Write code to reverse a C-Syle String. (C-String means that ""abcd"" is" 
+"Q1.2 (4th edition): Write code to reverse a C-Syle String. (C-String means that ""abcd"" is" 
 "represenented as five characters, including the null character.)"
 
 def reverse_c_string(string):
@@ -48,9 +48,79 @@ def reverse_c_string(string):
     else:
         print("Please enter a valid string")
 
-"Q1.2: Design an algorithm and write code to remove the duplicate characters in" 
-"a string without using any additional buffer NOTE: One or two additional" 
-"variables are fine An extra copy of the array is not."
+"Q1.2 : Check Permutation: Given two strings, write a method to decide if one"
+"       is a permutation of the other."
+
+#Methtod 1
+def string_to_ascii(string):
+    ascii_string = []
+    for char in string:
+        ascii_string.append(ord(char))
+    return ascii_string
+
+def strings_permutation1(string1, string2):
+    if len(string1)!=0 and len(string2)!=0:
+        if len(string1)!=len(string2):
+            return False
+        else:
+            s1 = string_to_ascii(string1)
+            s2 = string_to_ascii(string2)
+            
+            sum1=0;sum2=0;prod1=1;prod2=1;
+            
+            for i in range(len(s1)):
+                sum1 += s1[i]
+                prod1 = prod1*s1[i]
+                
+            for i in range(len(s2)):
+                sum2 += s2[i]
+                prod2 = prod2*s2[i]
+            
+            if sum1==sum2 and prod1==prod2:
+                return True
+            else:
+                return [False,s1,s2]
+    else:
+        return None
+    
+#Method 2
+def string_to_dict(string):
+    dict_of_string = {}
+    for char_key in string:
+        if dict_of_string.get(char_key,0) is 0:
+            dict_of_string[char_key] = 1
+        else:
+            dict_of_string[char_key] += 1 
+        
+    return dict_of_string
+
+def strings_permutation2(string1, string2):
+    if len(string1)!=0 and len(string2)!=0:
+        if len(string1)==len(string2):
+            dict1 = string_to_dict(string1)
+            dict2 = string_to_dict(string2)
+            
+            if len(list(dict1.keys()))==len(list(dict2.keys())):
+                for key in list(dict1.keys()):
+                    if key in list(dict2.keys()):
+                        if dict1[key]!=dict2[key]:
+                            return False
+                        else:
+                            continue
+                    else:
+                        return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return None
+    
+    return True
+
+"Q1.3 (4th edition): Design an algorithm and write code to remove the duplicate 
+"characters in a string without using any additional buffer NOTE: One or two "
+"additional variables are fine An extra copy of the array is not." 
 
 class CharCarrier():
     
