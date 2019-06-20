@@ -184,3 +184,23 @@ def remove_duplicates_string(string):
     
     return string_final
 
+
+
+"Q1.3: Write a method to replace all spaces in a string with '%20: You may 
+"assume that the string has sufficient space at the end to hold the additional 
+"characters, and that you are given the 'true' length of the string."
+
+def URLify(s, len_s):
+    s_final=[]
+    for char in s:
+        if char is not ' ':
+            s_final.append(char)
+        else:
+            s_final.append('%20')
+    s_returned = ''.join(s_final)
+    return s_returned
+    
+for char in s:
+    print(char)
+    if char is ' ':
+        print('True')
