@@ -200,7 +200,3 @@ def URLify(s, len_s):
     s_returned = ''.join(s_final)
     return s_returned
     
-for char in s:
-    print(char)
-    if char is ' ':
-        print('True')
