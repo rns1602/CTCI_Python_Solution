@@ -190,13 +190,47 @@ def remove_duplicates_string(string):
 "assume that the string has sufficient space at the end to hold the additional 
 "characters, and that you are given the 'true' length of the string."
 
-def URLify(s, len_s):
+def URLify(sstring, len_s):
     s_final=[]
-    for char in s:
+    for char in string:
         if char is not ' ':
             s_final.append(char)
         else:
             s_final.append('%20')
     s_returned = ''.join(s_final)
     return s_returned
+
+"Q1.4: Given a string, write a function to check if it is a permutation of a" 
+"palindrome. A palindrome is a word or phrase that is the same forwards and" 
+"backwards. A permutation is a rearrangement of letters.The palindrome does "
+"not need to be limited to just dictionary words."
+
+class MyDict:
+    def __init__(self):
+        self.dict = {}
+        
+    def add(self, element):            
+        if element in self.dict.keys():
+            self.dict[element]+=1
+        else:
+            self.dict[element]=1
+
+def is_permutation_palindrome(string_orig):
+    count = MyDict()
+    string = string_orig.lower() #case insensitive
+    for char in string:
+        if char is not " ":     #space insensitive
+            count.add(char)
     
+    flag = False
+    count_odd = 0
+    for key in count.dict.keys():
+        if count.dict[key]%2 is not 0:
+            count_odd+=1
+            
+    if count_odd <= 1:
+        flag = True
+    
+    return flag
+
+            
