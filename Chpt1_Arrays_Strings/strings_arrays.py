@@ -234,3 +234,72 @@ def is_permutation_palindrome(string_orig):
     return flag
 
             
+"""Q1.5: One Away: There are three types of edits that can be performed on 
+strings: insert a character, remove a character, or replace a character. Given 
+two strings, write a function to check if they are one edit (or zero edits) 
+away."""
+
+def one_away(str1, str2):
+    edit_dist = 0
+    #base case len(str1 or str2 or both == 0)
+    
+    #base case len(str1)==len(str2)==1, = 1 edit
+    
+    #when string1 and sring 2 are same length
+    n = len(str1)
+    
+    for i in range(n):
+        n1 = len(str1) 
+        n2 = len(str2)
+        print(i)
+        if str1[i] is not str2[i]:
+            if n1>n2:
+                str2 = str2[0:i]+str1[i]+str2[i:n2]
+            elif n2>n1:
+                str1 = str1[0:i]+str2[i]+str1[i:n1]
+            edit_dist += 1
+                
+                
+        
+    
+    #differentt lengths
+    
+    
+    print(edit_dist)
+    
+
+"""Q1.5: String Compression: Implement a method to perform basic string 
+compression using the counts of repeated characters. For example, 
+the string aabcccccaaa would become a2b1c5a3. If the "compressed" string 
+would not become smaller than the original string, your method should return 
+the original string. You can assume the string has only uppercase and 
+lowercase letters (a - z)."""
+
+def string_compression(string):
+    n = len(string)
+    i = 0
+    count=0
+    final_str = ''
+    
+    while(i<n):
+        char = string[i]
+        while(string[i+1] is char):
+            count += 1
+            i+=1
+            if i>n-2:
+                break
+    
+        final_str = final_str + char + str(count)
+        count = 1
+        i+=1
+        
+    if len(final_str)>n:
+        return string
+    else:
+        return final_str
+    
+"""Q1.6: Rotate Matrix: Given an image represented by an NxN matrix, where each 
+pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. 
+Can you do this in place?"""
+
+            
