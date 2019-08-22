@@ -239,6 +239,7 @@ strings: insert a character, remove a character, or replace a character. Given
 two strings, write a function to check if they are one edit (or zero edits) 
 away."""
 
+# TODO:
 def one_away(str1, str2):
     edit_dist = 0
     #base case len(str1 or str2 or both == 0)
@@ -268,7 +269,7 @@ def one_away(str1, str2):
     print(edit_dist)
     
 
-"""Q1.5: String Compression: Implement a method to perform basic string 
+"""Q1.6: String Compression: Implement a method to perform basic string 
 compression using the counts of repeated characters. For example, 
 the string aabcccccaaa would become a2b1c5a3. If the "compressed" string 
 would not become smaller than the original string, your method should return 
@@ -298,8 +299,220 @@ def string_compression(string):
     else:
         return final_str
     
-"""Q1.6: Rotate Matrix: Given an image represented by an NxN matrix, where each 
+"""Q1.7: Rotate Matrix: Given an image represented by an NxN matrix, where each 
 pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. 
 Can you do this in place?"""
 
+import numpy as np
+
+class MatrixElement:
+    def __init__(self,val):
+        self.row = None
+        self.col = None
+        self.value = val
+
+        
+def rotate_matrix(matrix):    
+#    if type(matrix) is not 'numpy.ndarray':
+#        return "Type error: Please input a numpy array."
+#    else:
+    N = matrix.shape[0]
+    mat = np.empty(shape=(N,N), dtype=object)
+    
+    for i in range(N):
+        for j in range(N):
+            mat[i,j] = MatrixElement(matrix[i,j])
             
+    temp_mat = np.empty(shape=(N,N),dtype=object)
+    temp_mat = rotate_matrix_recursive(mat)
+    print("yay")
+    
+    final_mat = np.empty(shape=(N,N),dtype=object)
+    for i in range(N):
+        for j in range(N):
+            elem = temp_mat[i,j]
+            print(type(elem))
+            print("Row:"+str(elem.row)+"   Col: "+ str(elem.col) + "    Value: " + str(elem.value))
+            final_mat[elem.row,elem.col] = elem.value
+            
+    print("Original Matrix:\n ")
+    print(matrix)
+    print("Rotated Matrix:\n ")
+    print(final_mat)
+#    
+            
+def rotate_matrix_recursive(big_matrix):
+    N = big_matrix.shape[0]
+    #Base Case
+    if N is 1:
+        return big_matrix
+    
+    #Recursive step
+    else:
+       small_matrix = np.empty(shape=(N-2,N-2),dtype=object)
+       for i in range(1,N-1):
+           for j in range(1,N-1):
+               small_matrix[i-1,j-1]=big_matrix[i,j]
+       
+        #Recursion - rotating smaller matrix
+       small_matrix_rot = rotate_matrix_recursive(small_matrix)
+       
+       #Integrate smaller matrix into larger unrotated matrix
+       if N is 1:
+           big_matrix[1,1] = small_matrix[0,0]
+       else:
+           for i in range(1,N-1):
+               for j in range(1,N-1):
+                   big_matrix[i,j] = small_matrix[i-1,j-1]
+        
+       big_matrix_rot = np.empty(shape=(N,N),dtype=object)
+       big_matrix_rot = rotate_big_matrix(big_matrix)
+       
+       print("Big Matrix ::::")
+       for i in range(N):,
+           for j in range(N):
+               print(big_matrix_rot[i,j].value)
+               
+       return big_matrix_rot
+            
+def rotate_big_matrix(bigmat):
+    #Rotating "frame" of smaller matrix
+    N = bigmat.shape[0]
+    num_shifts = N-1
+
+    row = 0
+    for col in range(1,N-1):
+        elem = bigmat[0,col]
+        bigmat[0,col] = get_new_pos(elem, row, col, num_shifts)
+    row = N-1
+    for col in range(1,N-1):
+        elem = bigmat[N-1,col]
+        bigmat[N-1,col] = get_new_pos(elem, row, col, num_shifts)
+    col = 0
+    for row in range(1,N-1):
+        elem = bigmat[row,0]
+        bigmat[row,0] = get_new_pos(elem, row, col, num_shifts)
+    col = N-1
+    for row in range(1,N-1):
+        elem = bigmat[row,N-1]
+        bigmat[row,N-1] = get_new_pos(elem, row, col, num_shifts)
+    
+    
+    row=0;col=0;
+    elem = bigmat[row,col]
+    bigmat[row,col] = get_new_pos(elem, row, col, num_shifts)
+    
+    row=0;col=N-1;
+    elem = bigmat[row,col]
+    bigmat[row,col] = get_new_pos(elem, row, col, num_shifts)
+    
+    row=N-1;col=0;
+    elem = bigmat[row,col]
+    bigmat[row,col] = get_new_pos(elem, row, col, num_shifts)
+    
+    row=N-1;col=N-1;
+    elem = bigmat[row,col]
+    bigmat[row,col] = get_new_pos(elem, row, col, num_shifts)
+    
+    return bigmat
+        
+
+def get_new_pos(e,r,c,n):
+    count = 0
+    print("Row:"+str(r)+"   Col: "+ str(c) + "    Value: " + str(e.value))
+
+    
+    if r==0:
+        while count<= n:
+            if c<n:
+                c+=1
+            else:
+                r+=1
+            count+=1
+    elif r==n:
+        while count<= n:
+            if c>0:
+                c-=1
+            else:
+                r-=1
+            count+=1
+    elif c==0:
+        while count<= n:
+            if r>0:
+                r-=1
+            else:
+                c+=1
+            count+=1
+    elif c==n:
+        while count<= n:
+            if r<n:
+                r+=1
+            else:
+                c-=1
+            count+=1
+    elif c==n and r==0 and r!=n:
+        while count<= n:
+            if r<n:
+                r+=1
+            else:
+                c-=1
+            count+=1
+        
+    e.row = r-1
+    e.col = c-1
+    return e
+                    
+            
+    
+myMat = np.array([[1,2,3],[4,5,6],[7,8,9]])
+    
+    
+"""Q1.8: Zero Matrix: Write an algorithm such that if an element in an MxN 
+matrix is 0, its entire row and column are set to O."""
+
+import numpy as np
+def zero_matrix(mat):
+    if type(matrix) is not 'numpy.ndarray':
+        return "Type error: Please input a numpy array."
+    else:
+        M, N = mat.shape
+        new_mat = mat
+        i = 0
+        j = 0
+        col_exc = []
+    
+        
+        while i<M:
+            while j<N:
+                    if new_mat[i,j] == 0 and j not in col_exc:
+                        col_exc.append(j)
+                        new_mat[i,:]=0
+                        new_mat[:,j]=0
+                        break
+                    j+=1
+            i+=1
+            j=0
+            
+        return new_mat
+
+    
+"""Q1.9: String Rotation: Assume you have amethod isSubstring which checks if 
+one word is asubstring of another. Given two strings, 51 and 52, write code to 
+check if 52 is a rotation of 51 using only one call to isSubstring 
+(e.g.,"waterbottle"is a rotation of"erbottlewat")."""
+
+def string_rotation(s1, s2):
+    
+    s2_temp = s2+s2
+    
+    if isSubstring(s1,s2_temp):
+        return True
+    else:
+        return False
+    
+def isSubstring(str1, str2):
+    if str1 in str2:
+        return True
+    else:
+        return False
+    
